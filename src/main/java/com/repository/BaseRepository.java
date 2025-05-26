@@ -4,6 +4,7 @@ package com.repository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
@@ -15,7 +16,7 @@ public class BaseRepository<T> {
     private Connection connection;
     private static final Logger logger = LogManager.getLogger(BaseRepository.class);
 
-    public BaseRepository() {
+    public BaseRepository()  {
         try {
             Properties properties = new Properties();
             properties.load(getClass().getResourceAsStream("/config.properties"));
@@ -25,8 +26,9 @@ public class BaseRepository<T> {
             String password = properties.getProperty("db.password");
 
             connection = DriverManager.getConnection(url, username, password);
-        } catch (SQLException | java.io.IOException e) {
+        } catch (SQLException  | IOException e) {
             logger.error("Error connecting to database: {}", e.getMessage());
+            throw new RuntimeException("Error connecting to database: " + e.getMessage());
         }
     }
 
@@ -41,12 +43,12 @@ public class BaseRepository<T> {
                 entities.add(entity);
             }
         } catch (SQLException e) {
-            System.err.println("SQL error occurred: " + e.getMessage());
             logger.error("SQL error occurred in findAll: {}", e.getMessage());
+            throw new RuntimeException("SQL error occurred in findAll: " + e.getMessage());
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
                  InvocationTargetException e) {
-            System.err.println("Error instantiating or setting properties for entity: " + e.getMessage());
             logger.error("Error instantiating or setting properties for entity: {}", e.getMessage());
+            throw new RuntimeException("Error instantiating or setting properties for entity: " + e.getMessage());
         }
         return entities;
     }
@@ -66,7 +68,7 @@ public class BaseRepository<T> {
             return statement.executeUpdate(updateSql);
         } catch (SQLException e) {
             logger.error("SQL error occurred in update: {}", e.getMessage());
-            return -1;
+            throw new RuntimeException("SQL error occurred in update: " + e.getMessage());
         }
     }
 
