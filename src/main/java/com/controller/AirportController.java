@@ -2,7 +2,10 @@ package com.controller;
 
 import com.dto.AirportDTO;
 import com.service.AirportService;
+import com.util.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,15 +14,22 @@ import java.util.List;
 @RequestMapping("/api/airports")
 public class AirportController {
 
-    @Autowired
+
     private AirportService airportService;
+
+    @Autowired
+    public AirportController(AirportService airportService) {
+        this.airportService = airportService;
+    }
+
 
     /**
      * GET /api/airports
      * 查询机场列表
      */
     @GetMapping
-    public List<AirportDTO> getAirports() {
-        return airportService.getAirports();
+    public ResponseEntity<ResponseMessage<List<AirportDTO>>> getAirports() {
+        ResponseMessage<List<AirportDTO>> response = ResponseMessage.success(airportService.getAllAirports());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
