@@ -31,7 +31,7 @@ public class AirportController {
     public ResponseEntity<ResponseMessage<List<AirportDTO>>> getAirports() {
         try {
             List<AirportDTO> airportDTOS = airportService.getAllAirports();
-            if(airportDTOS.size() == 0){
+            if(airportDTOS.isEmpty()){
                 ResponseMessage<List<AirportDTO>> badResponse = ResponseMessage.error(404, "Not Found");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(badResponse);
             }else{

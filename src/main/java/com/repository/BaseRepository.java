@@ -21,9 +21,14 @@ public class BaseRepository<T> {
             Properties properties = new Properties();
             properties.load(getClass().getResourceAsStream("/config.properties"));
 
-            String url = properties.getProperty("db.url");
-            String username = properties.getProperty("db.username");
-            String password = properties.getProperty("db.password");
+//            String url = properties.getProperty("db.url");
+//            String username = properties.getProperty("db.username");
+//            String password = properties.getProperty("db.password");
+
+            // H2 内存数据库配置（无需外部配置文件）
+            String url = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1"; // 内存模式，关闭连接后不删除数据
+            String username = "sa";
+            String password = "";
 
             connection = DriverManager.getConnection(url, username, password);
         } catch (SQLException  | IOException e) {
