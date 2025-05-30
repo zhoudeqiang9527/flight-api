@@ -4,6 +4,7 @@ import com.dto.BookingDetailDTO;
 import com.dto.BookingDTO;
 import com.dto.BookingRequestDTO;
 import com.service.BookingService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookings")
+
 public class BookingController {
 
     @Autowired
@@ -23,6 +25,7 @@ public class BookingController {
      * 查询预订列表
      */
     @GetMapping
+
     public ResponseEntity<List<BookingDTO>> getBookings(
             @RequestHeader(value = "Authorization", required = false) String authorization,
             @RequestParam(required = false) String status,
@@ -37,6 +40,7 @@ public class BookingController {
      * GET /api/bookings/{id}
      * 查询预订详情
      */
+
     @GetMapping("/{id}")
     public ResponseEntity<BookingDetailDTO> getBookingDetail(
             @PathVariable Long id,
@@ -50,6 +54,7 @@ public class BookingController {
      * POST /api/bookings
      * 创建预订
      */
+
     @PostMapping
     public ResponseEntity<BookingDetailDTO> createBooking(
             @RequestBody BookingRequestDTO request

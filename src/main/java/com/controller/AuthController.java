@@ -2,11 +2,13 @@ package com.controller;
 
 import com.dto.AuthResponseDTO;
 import com.service.AuthService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
+
 public class AuthController {
 
     @Autowired
@@ -16,6 +18,7 @@ public class AuthController {
      * POST /api/auth/login
      * 用户登录
      */
+
     @PostMapping("/login")
     public AuthResponseDTO login(
             @RequestParam String email,
@@ -28,6 +31,7 @@ public class AuthController {
      * POST /api/auth/register
      * 用户注册
      */
+
     @PostMapping("/register")
     public AuthResponseDTO register(
             @RequestParam String email,
