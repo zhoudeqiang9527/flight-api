@@ -19,7 +19,7 @@ public class BaseRepository<T> {
     public BaseRepository()  {
         try {
             Properties properties = new Properties();
-            properties.load(getClass().getResourceAsStream("/config.properties"));
+            properties.load(getClass().getResourceAsStream("/application.properties"));
 
 //            String url = properties.getProperty("db.url");
 //            String username = properties.getProperty("db.username");

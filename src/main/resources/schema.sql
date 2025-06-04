@@ -47,5 +47,6 @@ CREATE TABLE passenger (
     first_name VARCHAR(50) COMMENT '乘客名',
     last_name VARCHAR(50) COMMENT '乘客姓',
     email VARCHAR(100) COMMENT '乘客邮箱',
+    password VARCHAR(255) COMMENT '乘客密码',
     FOREIGN KEY (booking_id) REFERENCES booking(id)
 );
