@@ -3,14 +3,15 @@ package com.util.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.util.*;
 
 @Component
 public class JwtUtil {
@@ -23,13 +24,18 @@ public class JwtUtil {
     // 生成JWT
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(username)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(SignatureAlgorithm.HS512, secret)
-                .compact();
+        String encodedSecret = Base64.getEncoder().encodeToString(secret.getBytes(StandardCharsets.UTF_8));
+        byte[] keyBytes = Base64.getDecoder().decode(encodedSecret);
+
+        Key key = Keys.hmacShaKeyFor(keyBytes);
+       return Jwts.builder()
+               .setClaims(claims)
+               .setSubject(username)
+               .setIssuedAt(new Date(System.currentTimeMillis()))
+               .setExpiration(new Date(System.currentTimeMillis() + expiration))
+               .signWith(SignatureAlgorithm.HS256, key)
+               .compact();
+
     }
 
     // 从JWT中提取用户名

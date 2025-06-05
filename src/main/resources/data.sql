@@ -11,7 +11,7 @@ INSERT INTO airport (code, name, city) VALUES
 ('CAN', '广州白云国际机场', '广州');
 
 -- 用户表测试数据
-INSERT INTO user2 (email, password, first_name, last_name, country, phone) VALUES
+INSERT INTO user (email, password, first_name, last_name, country, phone) VALUES
 ('alice@example.com', 'password123', 'Alice', 'Smith', 'China', '13800138000'),
 ('bob@example.com', 'password456', 'Bob', 'Johnson', 'China', '13900139000'),
 ('charlie@example.com', 'password789', 'Charlie', 'Brown', 'China', '13700137000');
@@ -23,7 +23,7 @@ INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES
 (3, 3, 'REF11223', 'PAST', 1800.75);
 
 -- 乘客表测试数据
-INSERT INTO passenger (booking_id, first_name, last_name, email,password) VALUES
-(1, 'Alice', 'Smith', 'alice@example.com','password123'),
-(2, 'Bob', 'Johnson', 'bob@example.com','password456'),
-(3, 'Charlie', 'Brown', 'charlie@example.com','password789');
+INSERT INTO passenger (booking_id, first_name, last_name, email) VALUES
+(1, 'Alice', 'Smith', 'alice@example.com'),
+(2, 'Bob', 'Johnson', 'bob@example.com'),
+(3, 'Charlie', 'Brown', 'charlie@example.com');

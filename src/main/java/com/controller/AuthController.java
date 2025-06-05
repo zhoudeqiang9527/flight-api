@@ -1,9 +1,13 @@
 package com.controller;
 
 import com.dto.AuthResponseDTO;
+import com.dto.RegisterRequestDTO;
 import com.service.AuthService;
 
+import com.util.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,6 +27,7 @@ public class AuthController {
             @RequestParam String email,
             @RequestParam String password
     ) {
+        System.out.println("email: " + email);
         return authService.login(email, password);
     }
 
@@ -32,14 +37,15 @@ public class AuthController {
      */
 
     @PostMapping("/register")
-    public AuthResponseDTO register(
-            @RequestParam String email,
-            @RequestParam String password,
-            @RequestParam String firstName,
-            @RequestParam String lastName,
-            @RequestParam String country,
-            @RequestParam(required = false) String phone
+    public ResponseEntity<ResponseMessage<String>> register(
+            @RequestBody RegisterRequestDTO registerRequestDto
     ) {
-        return authService.register(email, password, firstName, lastName, country, phone);
+        boolean result = authService.register(registerRequestDto);
+        if (result) {
+            ResponseMessage<String> message = ResponseMessage.success("Register success");
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.error(400, "Register failed"));
     }
 }

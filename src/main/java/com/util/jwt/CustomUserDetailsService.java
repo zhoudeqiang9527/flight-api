@@ -1,7 +1,9 @@
 package com.util.jwt;
 
 import com.dto.PassengerDTO;
-import com.repository.PassengerRepository;
+
+import com.dto.User;
+import com.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,20 +15,17 @@ import java.util.ArrayList;
 @Primary
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final PassengerRepository passengerRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    public CustomUserDetailsService(PassengerRepository passengerRepository) {
-        this.passengerRepository = passengerRepository;
-    }
+   @Autowired
+   public CustomUserDetailsService(UserRepository userRepository) {
+       this.userRepository = userRepository;
+   }
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        PassengerDTO passenger = passengerRepository.getPassengerByEmail(username);
-        if (passenger == null) {
-            return null;
-        }
-        return new org.springframework.security.core.userdetails.User(passenger.getEmail(), passenger.getPassword(), new ArrayList<>());
+    public UserDetails loadUserByUsername(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
 
     }
 }

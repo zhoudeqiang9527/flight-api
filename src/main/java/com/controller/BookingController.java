@@ -32,6 +32,7 @@ public class BookingController {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
+        System.out.println("getBookings-------------");
         List<BookingDTO> bookings = bookingService.getBookings(authorization, status, page, size);
         return ResponseEntity.ok(bookings);
     }
