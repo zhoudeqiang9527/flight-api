@@ -1,6 +1,5 @@
 package com.service;
 
-import com.dto.BookingDetailDTO;
 import com.dto.Booking;
 import com.dto.BookingRequestDTO;
 import com.dto.User;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Service

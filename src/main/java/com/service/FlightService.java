@@ -1,15 +1,18 @@
 package com.service;
 
-import com.dto.FlightDTO;
-import com.dto.FlightDetailDTO;
+import com.dto.Flight;
+import com.repository.FlightRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 @Service
 public class FlightService {
+    @Autowired
+    private FlightRepository flightRepository;
+
+
     /**
      * 搜索航班
      *
@@ -18,24 +21,19 @@ public class FlightService {
      * @param date       日期（格式：yyyy-MM-dd）
      * @return 航班列表
      */
-    public List<FlightDTO> searchFlights(String from, String to, String date){
-        List<FlightDTO> flights = new ArrayList<>();
-        FlightDTO flight = new FlightDTO(1L, "MU501", "北京", "上海", new Date(), "09:00", 10000.0);
-        flights.add(flight);
-        FlightDTO flight2 = new FlightDTO(2L, "MU502", "上海", "北京", new Date(), "10:00", 12000.0);
-        flights.add(flight2);
+    public List<Flight> searchFlights(String from, String to, String date){
+        List<Flight> flights = flightRepository.findFlightByDepartureDate(date,from,to).orElseThrow(()-> new NoSuchElementException("No flights found"));
         return flights;
-
     }
 
     /**
      * 获取航班详情
      *
-     * @param id 航班 ID
+     * @param id 航班ID
      * @return 航班详细信息
      */
-     public FlightDetailDTO getFlightDetail(Long id){
-         FlightDetailDTO flightDetail = new FlightDetailDTO(1L, "MU501", "北京", "上海", new Date(), "09:00", 10000.0, Arrays.asList("A1", "A2", "A3"), "MU");
-          return flightDetail;
+     public Flight getFlightDetail(Long id){
+         Flight flight = flightRepository.findFlightById(id).orElseThrow(()-> new NoSuchElementException("No flight found"));
+         return flight;
      }
 }

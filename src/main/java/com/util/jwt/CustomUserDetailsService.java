@@ -1,6 +1,6 @@
 package com.util.jwt;
 
-import com.dto.PassengerDTO;
+
 
 import com.dto.User;
 import com.repository.UserRepository;

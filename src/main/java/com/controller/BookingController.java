@@ -1,6 +1,5 @@
 package com.controller;
 
-import com.dto.BookingDetailDTO;
 import com.dto.Booking;
 import com.dto.BookingRequestDTO;
 import com.service.BookingService;
