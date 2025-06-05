@@ -28,38 +28,39 @@ public class JwtUtil {
         byte[] keyBytes = Base64.getDecoder().decode(encodedSecret);
 
         Key key = Keys.hmacShaKeyFor(keyBytes);
-       return Jwts.builder()
-               .setClaims(claims)
-               .setSubject(username)
-               .setIssuedAt(new Date(System.currentTimeMillis()))
-               .setExpiration(new Date(System.currentTimeMillis() + expiration))
-               .signWith(SignatureAlgorithm.HS256, key)
-               .compact();
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(username)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(SignatureAlgorithm.HS256, key)
+                .compact();
 
     }
 
     // 从JWT中提取用户名
     public String getUsernameFromToken(String token) {
-        return getClaimsFromToken(token).getSubject();
+        String encodedSecret = Base64.getEncoder().encodeToString(secret.getBytes(StandardCharsets.UTF_8));
+        byte[] keyBytes = Base64.getDecoder().decode(encodedSecret);
+
+        Key key = Keys.hmacShaKeyFor(keyBytes);
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 
     // 验证JWT是否合法
     public boolean validateToken(String token, String username) {
         try {
+
             String usernameFromToken = getUsernameFromToken(token);
             return usernameFromToken.equals(username);
         } catch (Exception e) {
             return false;
         }
-    }
-
-
-    // 从JWT中获取Claims
-    private Claims getClaimsFromToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody();
     }
 
 

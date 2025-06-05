@@ -20,7 +20,14 @@ INSERT INTO user (email, password, first_name, last_name, country, phone) VALUES
 INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES
 (1, 1, 'REF12345', 'UPCOMING', 1200.50),
 (2, 2, 'REF67890', 'UPCOMING', 1500.00),
-(3, 3, 'REF11223', 'PAST', 1800.75);
+(3, 3, 'REF11223', 'PAST', 1800.75),
+(1, 2, 'REF34567', 'UPCOMING', 1500.00),
+(2, 3, 'REF89012', 'UPCOMING', 1800.75),
+(3, 1, 'REF22334', 'PAST', 1200.50),
+(1, 3, 'REF56789', 'PAST', 1800.75),
+(2, 1, 'REF45678', 'PAST', 1200.50),
+(3, 2, 'REF90123', 'PAST', 1500.00);
+
 
 -- 乘客表测试数据
 INSERT INTO passenger (booking_id, first_name, last_name, email) VALUES
