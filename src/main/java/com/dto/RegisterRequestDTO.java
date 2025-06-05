@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponseDTO {
-    private String token;
+public class RegisterRequestDTO {
+    private String password;
     private String email;
     private String firstName;
     private String lastName;
-    private String country;
     private String phone;
+    private String country;
 }

@@ -29,7 +29,7 @@ public class SpringDocConfig {
                 // 配置License许可证信息
                 .license(new License().name("Apache 2.0"))
                 // 概述信息
-                .summary("SpringBoot3集成Swagger3示例文档")
+                .summary("SpringBoot3集成Swagger3概述")
                 //.termsOfService("https://www.xiezhrspace.cn")
                 // 配置版本号
                 .version("2.0");

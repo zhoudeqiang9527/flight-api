@@ -1,10 +1,10 @@
 package com.controller;
 
-import com.dto.FlightDTO;
-import com.dto.FlightDetailDTO;
+import com.dto.Flight;
 import com.service.FlightService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,12 +23,13 @@ public class FlightController {
      */
     @GetMapping
 
-    public List<FlightDTO> searchFlights(
+    public ResponseEntity<List<Flight>> searchFlights(
             @RequestParam String from,
             @RequestParam String to,
             @RequestParam String date
     ) {
-        return flightService.searchFlights(from, to, date);
+        List<Flight> flights = flightService.searchFlights(from, to, date);
+        return ResponseEntity.ok(flights);
     }
 
     /**
@@ -37,7 +38,7 @@ public class FlightController {
      */
 
     @GetMapping("/{id}")
-    public FlightDetailDTO getFlightDetail(@PathVariable("id") Long id) {
-        return flightService.getFlightDetail(id);
+    public ResponseEntity<Flight> getFlightDetail(@PathVariable("id") Long id) {
+        return ResponseEntity.ok( flightService.getFlightDetail(id));
     }
 }
