@@ -35,8 +35,8 @@ public class ResponseMessage <T>{
         this.data = data;
     }
 
-    public static <T> ResponseMessage<T> success(T data) {
-        return new ResponseMessage<T>(200, "success", data);
+    public static <T> ResponseMessage<T> success(String message, T data) {
+        return new ResponseMessage<T>(200, message, data);
     }
 
     public static <T> ResponseMessage<T> created(T data) {

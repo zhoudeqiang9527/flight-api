@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.dto.AuthResponseDTO;
+import com.dto.LoginRequestDTO;
 import com.dto.RegisterRequestDTO;
 import com.service.AuthService;
 
@@ -23,12 +24,12 @@ public class AuthController {
      */
 
     @PostMapping("/login")
-    public AuthResponseDTO login(
-            @RequestParam String email,
-            @RequestParam String password
+    public ResponseEntity<ResponseMessage<AuthResponseDTO>> login(
+            @RequestBody LoginRequestDTO loginRequestDto
     ) {
-        System.out.println("email: " + email);
-        return authService.login(email, password);
+        AuthResponseDTO authResponseDTO = authService.login(loginRequestDto.getUsername(), loginRequestDto.getPassword());
+
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseMessage.success("Login success",authResponseDTO));
     }
 
     /**
@@ -42,7 +43,7 @@ public class AuthController {
     ) {
         boolean result = authService.register(registerRequestDto);
         if (result) {
-            ResponseMessage<String> message = ResponseMessage.success("Register success");
+            ResponseMessage<String> message = ResponseMessage.success("Register success",null);
             return ResponseEntity.status(HttpStatus.OK).body(message);
         }
 
