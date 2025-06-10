@@ -45,6 +45,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseMessage<String>> handleUnexpectedException(Exception ex) {
         ResponseMessage<String> response = ResponseMessage.error(500, "An unexpected error happened: " + ex.getMessage());
+        System.out.println(ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  flight-api:
+    build: .
+    container_name: flight-api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://zdq-flightdb.cj6gcogsidzt.ap-southeast-2.rds.amazonaws.com:3306/flightdb?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin123
+    depends_on:
+      - mysql-server
+
+

@@ -1,14 +1,18 @@
 package com.controller;
 
 import com.dto.AuthResponseDTO;
+import com.dto.LoginRequestDTO;
+import com.dto.RegisterRequestDTO;
 import com.service.AuthService;
 
+import com.util.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-
 public class AuthController {
 
     @Autowired
@@ -20,11 +24,12 @@ public class AuthController {
      */
 
     @PostMapping("/login")
-    public AuthResponseDTO login(
-            @RequestParam String email,
-            @RequestParam String password
+    public ResponseEntity<ResponseMessage<AuthResponseDTO>> login(
+            @RequestBody LoginRequestDTO loginRequestDto
     ) {
-        return authService.login(email, password);
+        AuthResponseDTO authResponseDTO = authService.login(loginRequestDto.getUsername(), loginRequestDto.getPassword());
+
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseMessage.success("Login success",authResponseDTO));
     }
 
     /**
@@ -33,14 +38,15 @@ public class AuthController {
      */
 
     @PostMapping("/register")
-    public AuthResponseDTO register(
-            @RequestParam String email,
-            @RequestParam String password,
-            @RequestParam String firstName,
-            @RequestParam String lastName,
-            @RequestParam String country,
-            @RequestParam(required = false) String phone
+    public ResponseEntity<ResponseMessage<String>> register(
+            @RequestBody RegisterRequestDTO registerRequestDto
     ) {
-        return authService.register(email, password, firstName, lastName, country, phone);
+        boolean result = authService.register(registerRequestDto);
+        if (result) {
+            ResponseMessage<String> message = ResponseMessage.success("Register success",null);
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseMessage.error(400, "Register failed"));
     }
 }

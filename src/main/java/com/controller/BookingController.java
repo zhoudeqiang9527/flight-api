@@ -1,10 +1,10 @@
 package com.controller;
 
-import com.dto.BookingDetailDTO;
-import com.dto.BookingDTO;
+import com.dto.Booking;
 import com.dto.BookingRequestDTO;
 import com.service.BookingService;
 
+import com.util.jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,20 +20,22 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
+    @Autowired
+    private  JwtUtil jwtUtil;
+
     /**
      * GET /api/bookings
      * 查询预订列表
      */
     @GetMapping
 
-    public ResponseEntity<List<BookingDTO>> getBookings(
-            @RequestHeader(value = "Authorization", required = false) String authorization,
-            @RequestParam(required = false) String status,
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size
+    public ResponseEntity<List<Booking>> getBookings(
+            @RequestHeader(value = "Authorization", required = true) String authorization,
+            @RequestParam String email
     ) {
-        List<BookingDTO> bookings = bookingService.getBookings(authorization, status, page, size);
-        return ResponseEntity.ok(bookings);
+
+        List<Booking> bookings = bookingService.getBookings(email);
+        return ResponseEntity.status(HttpStatus.OK).body(bookings);
     }
 
     /**
@@ -42,12 +44,12 @@ public class BookingController {
      */
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookingDetailDTO> getBookingDetail(
-            @PathVariable Long id,
-            @RequestHeader(value = "Authorization", required = false) String authorization
+    public ResponseEntity<Booking> getBookingDetail(
+            @PathVariable Long id
     ) {
-        BookingDetailDTO bookingDetailDTO = bookingService.getBookingDetail(id, authorization);
-        return ResponseEntity.ok(bookingDetailDTO); // 使用 ResponseEntity 包装 BookingDetailDTO
+
+        Booking booking = bookingService.getBookingDetail(id);
+        return ResponseEntity.ok(booking);
     }
 
     /**
@@ -56,10 +58,15 @@ public class BookingController {
      */
 
     @PostMapping
-    public ResponseEntity<BookingDetailDTO> createBooking(
+    public ResponseEntity<String> createBooking(
             @RequestBody BookingRequestDTO request
     ) {
-        BookingDetailDTO bookingDetailDTO = bookingService.createBooking(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(bookingDetailDTO);
+        boolean result = bookingService.createBooking(request);
+        if(result){
+            return ResponseEntity.status(HttpStatus.OK).body("created booking");
+        }else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("insert booking failed");
+        }
+
     }
 }

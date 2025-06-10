@@ -2,47 +2,22 @@ package com.repository;
 
 import com.dto.AirportDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 @Repository
-public class AirportRepository  extends BaseRepository<AirportDTO> {
-    public String select_sql = "SELECT * FROM airports";
+public interface AirportRepository  extends JpaRepository<AirportDTO, Long> {
+    @Query(value = "SELECT * FROM airports", nativeQuery = true)
+    List<AirportDTO> findAllAirports();
 
-    @Autowired
-    public AirportRepository() throws SQLException {
-    }
+    @Query(value = "SELECT * FROM airports WHERE code = ?1", nativeQuery = true)
+    AirportDTO findAirportByCode(String code);
 
-    public List<AirportDTO> findAllAirports() {
-        // Test Data creation
-        List<AirportDTO> airportDTOList = new ArrayList<>();
+    @Query(value = "SELECT * FROM airports WHERE name LIKE %?1%", nativeQuery = true)
+    List<AirportDTO> findAirportsByName(String name);
 
-        AirportDTO airportDTO = new AirportDTO();
-        airportDTO.setCity("beijing");
-        airportDTO.setName("Beijing Capital International Airport");
-        airportDTO.setCode("BJS");
-
-        airportDTOList.add(airportDTO);
-
-        airportDTO = new AirportDTO();
-        airportDTO.setCity("tokyo");
-        airportDTO.setName("Tokyo International Airport");
-        airportDTO.setCode("HND");
-
-        airportDTOList.add(airportDTO);
-
-        airportDTO = new AirportDTO();
-        airportDTO.setCity("new york");
-        airportDTO.setName("John F Kennedy International Airport");
-        airportDTO.setCode("JFK");
-
-        airportDTOList.add(airportDTO);
-
-        return airportDTOList;
-
-
-        //return findAll(select_sql, AirportDTO.class);
-    }
 }
