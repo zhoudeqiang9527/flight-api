@@ -1,9 +1,9 @@
 -- 航班表
 CREATE TABLE flight (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     flight_number VARCHAR(10),
-    departure_airport_id INTEGER,
-    destination_airport_id INTEGER,
+    departure_airport_id INT,
+    destination_airport_id INT,
     departure_date DATE,
     departure_time TIME,
     price DECIMAL(10,2)
@@ -11,7 +11,7 @@ CREATE TABLE flight (
 
 -- 机场表
 CREATE TABLE airport (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     code VARCHAR(10),
     name VARCHAR(100),
     city VARCHAR(100)
@@ -19,7 +19,7 @@ CREATE TABLE airport (
 
 -- 用户表
 CREATE TABLE user (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(100) UNIQUE,
     password VARCHAR(255),
     first_name VARCHAR(50),
@@ -30,9 +30,9 @@ CREATE TABLE user (
 
 -- 预订表
 CREATE TABLE booking (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    flight_id INTEGER,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    flight_id INT,
     reference VARCHAR(20),
     status VARCHAR(20),
     booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -43,8 +43,8 @@ CREATE TABLE booking (
 
 -- 乘客表
 CREATE TABLE passenger (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    booking_id INTEGER,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    booking_id INT,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     email VARCHAR(100),

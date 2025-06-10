@@ -29,17 +29,16 @@ public class FlightService {
         //通过出发地获得对应的机场ID
         List<AirportDTO> fromAirports = airportRepository.findAirportsByName(from);
         long fromID = 0;
-        if(fromAirports.size() > 0){
-            fromID = fromAirports.get(0).getId();
+        if(!fromAirports.isEmpty()){
+            fromID = fromAirports.getFirst().getId();
         }
         List<AirportDTO> toAirports = airportRepository.findAirportsByName(to);
         long toID = 0;
-        if(toAirports.size() > 0){
-            toID = toAirports.get(0).getId();
+        if(!toAirports.isEmpty()){
+            toID = toAirports.getFirst().getId();
         }
         //通过目的地获得对应的机场ID
-        List<Flight> flights = flightRepository.findFlights(fromID, toID, date);
-        return flights;
+        return flightRepository.findFlights(fromID, toID, date);
     }
 
     /**
@@ -49,7 +48,6 @@ public class FlightService {
      * @return 航班详细信息
      */
      public Flight getFlightDetail(String flightNumber){
-         Flight flight = flightRepository.findFlightByFlightNumber(flightNumber).orElseThrow(()-> new RuntimeException("flight not found"));
-         return flight;
+         return flightRepository.findFlightByFlightNumber(flightNumber).orElseThrow(()-> new RuntimeException("flight not found"));
      }
 }
