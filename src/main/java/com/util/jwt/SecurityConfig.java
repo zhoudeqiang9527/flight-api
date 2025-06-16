@@ -41,10 +41,10 @@ public class SecurityConfig  {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("*")); // 允许 React 前端
+        configuration.setAllowedOrigins(List.of("*")); // 允许 React 前端
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // 允许的 HTTP 方法
         configuration.setAllowedHeaders(List.of("*")); // 允许所有请求头
-        configuration.setAllowCredentials(true); // 允许携带 Cookie（如 JWT）
+        configuration.setAllowCredentials(false); // 不允许携带凭据（cookies）
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration); // 应用到所有路径
