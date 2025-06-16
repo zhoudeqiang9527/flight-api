@@ -38,7 +38,7 @@ public class AirportController {
                 ResponseMessage<List<AirportDTO>> badResponse = ResponseMessage.error(404, "Not Found");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(badResponse);
             }else{
-                ResponseMessage<List<AirportDTO>> response = ResponseMessage.success(airportService.getAllAirports());
+                ResponseMessage<List<AirportDTO>> response = ResponseMessage.success("get airportData success",airportService.getAllAirports());
                 return ResponseEntity.status(HttpStatus.OK).body(response);
             }
         }catch (Exception e){
