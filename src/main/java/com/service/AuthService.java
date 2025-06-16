@@ -37,9 +37,7 @@ public class AuthService {
 
         String token = jwtUtil.generateToken(email);
 
-        AuthResponseDTO authResponseDTO = new AuthResponseDTO(token, email, user.getFirst_name(), user.getLast_name(), user.getCountry(), user.getPhone());
-
-        return authResponseDTO;
+         return new AuthResponseDTO(token, email, user.getFirst_name(), user.getLast_name(), user.getCountry(), user.getPhone());
 
      };
 
