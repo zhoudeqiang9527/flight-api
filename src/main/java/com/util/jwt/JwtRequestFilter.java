@@ -44,6 +44,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         jwt = authorizationHeader.substring(7);
+        if(jwtUtil.isTokenExpired(jwt)){
+            chain.doFilter(request, response);
+            return;
+        }
         username = jwtUtil.getUsernameFromToken(jwt);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             if (jwtUtil.validateToken(jwt, username)) {

@@ -29,7 +29,7 @@ public class SecurityConfig  {
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf-> csrf.disable())
-                .authorizeHttpRequests(authorizeRequests ->authorizeRequests.requestMatchers("api/auth/login", "api/auth/register","/api/airports/**")
+                .authorizeHttpRequests(authorizeRequests ->authorizeRequests.requestMatchers("api/auth/login", "api/auth/register","/api/flights/**","/api/flights")
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

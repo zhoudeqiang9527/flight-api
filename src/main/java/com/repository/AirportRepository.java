@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 @Repository
 public interface AirportRepository  extends JpaRepository<AirportDTO, Long> {
-    @Query(value = "SELECT * FROM airports", nativeQuery = true)
+    @Query(value = "SELECT * FROM airport", nativeQuery = true)
     List<AirportDTO> findAllAirports();
 
-    @Query(value = "SELECT * FROM airports WHERE code = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM airport WHERE code = ?1", nativeQuery = true)
     AirportDTO findAirportByCode(String code);
 
-    @Query(value = "SELECT * FROM airports WHERE name LIKE %?1%", nativeQuery = true)
+    @Query(value = "SELECT * FROM airport WHERE name LIKE %?1%", nativeQuery = true)
     List<AirportDTO> findAirportsByName(String name);
 
 }

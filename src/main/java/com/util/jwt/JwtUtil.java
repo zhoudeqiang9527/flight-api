@@ -1,8 +1,6 @@
 package com.util.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
@@ -52,6 +50,25 @@ public class JwtUtil {
                 .getSubject();
     }
 
+    public  boolean isTokenExpired(String token) {
+        try {
+            String encodedSecret = Base64.getEncoder().encodeToString(secret.getBytes(StandardCharsets.UTF_8));
+            byte[] keyBytes = Base64.getDecoder().decode(encodedSecret);
+            Jws<Claims> jws = Jwts.parserBuilder()
+                    .setSigningKey(keyBytes)
+                    .build()
+                    .parseClaimsJws(token);
+
+            Claims claims = jws.getBody();
+            Date expiration = claims.getExpiration();
+
+            return expiration.before(new Date()); // 判断是否已过期
+        } catch (JwtException e) {
+            // token 无效，比如签名不匹配、格式错误等
+            System.out.println("Invalid token: " + e.getMessage());
+            return true;
+        }
+    }
     // 验证JWT是否合法
     public boolean validateToken(String token, String username) {
         try {

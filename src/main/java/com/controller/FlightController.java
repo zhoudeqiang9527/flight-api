@@ -6,6 +6,7 @@ import com.service.FlightService;
 
 import com.util.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,9 +27,11 @@ public class FlightController {
     @GetMapping
 
     public ResponseEntity<ResponseMessage<List<Flight>>> searchFlights(
-            @RequestBody FlightRequestDTO flightRequestDTO
-            ) {
-        List<Flight> flights = flightService.searchFlights(flightRequestDTO.getFrom(), flightRequestDTO.getTo(), flightRequestDTO.getDepartureDate());
+            @RequestParam("from") String from,
+            @RequestParam("to") String to,
+            @RequestParam("departureDate") String defaultDate ) {
+        System.out.println(from);
+        List<Flight> flights = flightService.searchFlights(from, to, defaultDate);
         return ResponseEntity.ok(ResponseMessage.success("查询成功", flights));
     }
 
