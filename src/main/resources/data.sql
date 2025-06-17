@@ -135,8 +135,60 @@ INSERT INTO user (email, password, first_name, last_name, country, phone) VALUES
 
 
 
+
 -- 乘客表测试数据
 INSERT INTO passenger (booking_id, first_name, last_name, email) VALUES
 (1, 'Alice', 'Smith', 'alice@example.com'),
 (2, 'Bob', 'Johnson', 'bob@example.com'),
 (3, 'Charlie', 'Brown', 'charlie@example.com');
+
+-- 为booking表插入50条记录（每条记录单独INSERT）
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 1, 'REF10001', 'CONFIRMED', 1200.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 3, 'REF10002', 'CONFIRMED', 1400.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 5, 'REF10003', 'CONFIRMED', 1100.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 7, 'REF10004', 'CONFIRMED', 900.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 9, 'REF10005', 'CONFIRMED', 600.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 11, 'REF10006', 'CONFIRMED', 1400.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 13, 'REF10007', 'CONFIRMED', 500.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 15, 'REF10008', 'CONFIRMED', 700.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 17, 'REF10009', 'CONFIRMED', 650.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 19, 'REF10010', 'CONFIRMED', 1300.00);
+
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 2, 'REF20001', 'CONFIRMED', 1500.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 4, 'REF20002', 'CONFIRMED', 1300.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 6, 'REF20003', 'CONFIRMED', 1100.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 8, 'REF20004', 'CONFIRMED', 950.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 10, 'REF20005', 'CONFIRMED', 1400.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 12, 'REF20006', 'CONFIRMED', 850.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 14, 'REF20007', 'CONFIRMED', 800.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 16, 'REF20008', 'CONFIRMED', 450.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 18, 'REF20009', 'CONFIRMED', 750.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 20, 'REF20010', 'CONFIRMED', 900.00);
+
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 21, 'REF30001', 'CONFIRMED', 1100.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 22, 'REF30002', 'CONFIRMED', 950.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 23, 'REF30003', 'CONFIRMED', 700.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 24, 'REF30004', 'CONFIRMED', 550.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 25, 'REF30005', 'CONFIRMED', 600.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 26, 'REF30006', 'CONFIRMED', 1200.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 27, 'REF30007', 'CONFIRMED', 650.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 28, 'REF30008', 'CONFIRMED', 400.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 29, 'REF30009', 'CONFIRMED', 750.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 30, 'REF30010', 'CONFIRMED', 850.00);
+
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 6, 'REF40001', 'CONFIRMED', 1100.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 11, 'REF40002', 'CONFIRMED', 1400.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 16, 'REF40003', 'CONFIRMED', 450.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 21, 'REF40004', 'CONFIRMED', 1100.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 26, 'REF40005', 'CONFIRMED', 1200.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 1, 'REF40006', 'CONFIRMED', 1200.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 7, 'REF40007', 'CONFIRMED', 900.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 12, 'REF40008', 'CONFIRMED', 850.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 17, 'REF40009', 'CONFIRMED', 650.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 22, 'REF40010', 'CONFIRMED', 950.00);
+
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 27, 'REF50001', 'CONFIRMED', 650.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 2, 'REF50002', 'CONFIRMED', 1500.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (1, 8, 'REF50003', 'CONFIRMED', 950.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (2, 13, 'REF50004', 'CONFIRMED', 500.00);
+INSERT INTO booking (user_id, flight_id, reference, status, total_price) VALUES (3, 18, 'REF50005', 'CONFIRMED', 750.00);
