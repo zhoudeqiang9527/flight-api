@@ -4,6 +4,21 @@ INSERT INTO flight (flight_number, departure_airport_id, destination_airport_id,
 VALUES ('CA1501', 1, 2, '2023-12-01', '08:00:00', 1200.00); -- 北京->上海
 
 INSERT INTO flight (flight_number, departure_airport_id, destination_airport_id, departure_date, departure_time, price)
+VALUES ('CA1502', 1, 2, '2023-12-01', '10:30:00', 1150.00); -- 北京->上海
+
+INSERT INTO flight (flight_number, departure_airport_id, destination_airport_id, departure_date, departure_time, price)
+VALUES ('CA1503', 1, 2, '2023-12-01', '13:15:00', 1300.00); -- 北京->上海
+
+INSERT INTO flight (flight_number, departure_airport_id, destination_airport_id, departure_date, departure_time, price)
+VALUES ('CA1504', 1, 2, '2023-12-01', '16:45:00', 980.00); -- 北京->上海
+
+INSERT INTO flight (flight_number, departure_airport_id, destination_airport_id, departure_date, departure_time, price)
+VALUES ('CA1505', 1, 2, '2023-12-01', '19:00:00', 1050.00); -- 北京->上海
+
+INSERT INTO flight (flight_number, departure_airport_id, destination_airport_id, departure_date, departure_time, price)
+VALUES ('CA1506', 1, 2, '2023-12-01', '22:20:00', 1280.00); -- 北京->上海
+
+INSERT INTO flight (flight_number, departure_airport_id, destination_airport_id, departure_date, departure_time, price)
 VALUES ('CA1305', 1, 3, '2023-12-01', '09:30:00', 1500.00); -- 北京->广州
 
 INSERT INTO flight (flight_number, departure_airport_id, destination_airport_id, departure_date, departure_time, price)

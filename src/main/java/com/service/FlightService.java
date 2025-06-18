@@ -22,10 +22,11 @@ public class FlightService {
      *
      * @param from       出发地
      * @param to         目的地
-     * @param date       日期（格式：yyyy-MM-dd）
+     * @param defaultDate 出发日期
+     * @param returnDate 返程日期
      * @return 航班列表
      */
-    public List<Flight> searchFlights(String from, String to, String date){
+    public List<Flight> searchFlights(String from, String to, String defaultDate,String returnDate){
         //通过出发地获得对应的机场ID
         List<AirportDTO> fromAirports = airportRepository.findAirportsByName(from);
         long fromID = 0;
@@ -38,7 +39,7 @@ public class FlightService {
             toID = toAirports.getFirst().getId();
         }
         //通过目的地获得对应的机场ID
-        return flightRepository.findFlights(fromID, toID, date);
+        return flightRepository.findFlights(fromID, toID, defaultDate,returnDate);
     }
 
     /**

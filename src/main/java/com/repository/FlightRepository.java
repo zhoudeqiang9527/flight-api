@@ -20,7 +20,7 @@ public class FlightRepository{
     }
 
     public List<Flight> findFlights(Long departureAirportID, Long arrivalAirportID,
-                                    String departureTime) {
+                                    String departureTime, String arrivalTime) {
 
         StringBuilder sql = new StringBuilder("SELECT * FROM flight WHERE 1=1");
         List<Object> params = new ArrayList<>();
@@ -38,6 +38,10 @@ public class FlightRepository{
         if (departureTime != null && !departureTime.isEmpty()) {
             sql.append(" AND DATE_FORMAT(departure_date, '%Y/%m/%d') = DATE_FORMAT(?, '%Y/%m/%d')");
             params.add(departureTime);
+        }
+        if (arrivalTime != null && !arrivalTime.isEmpty()) {
+            sql.append(" AND DATE_FORMAT(arrival_date, '%Y/%m/%d') = DATE_FORMAT(?, '%Y/%m/%d')");
+            params.add(arrivalTime);
         }
 
         return jdbcTemplate.query(
