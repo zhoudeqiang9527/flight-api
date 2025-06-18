@@ -62,8 +62,23 @@ public class FlightController {
      */
 
     @GetMapping("/{flight_number}")
-    public ResponseEntity<ResponseMessage<Flight>> getFlightDetail(@PathVariable("flight_number") String flightNumber) {
+    public ResponseEntity<ResponseMessage<List<FlightResponseDTO>>> getFlightDetail(@PathVariable("flight_number") String flightNumber) {
         Flight flight = flightService.getFlightDetail(flightNumber);
-        return ResponseEntity.ok(ResponseMessage.success("查询成功", flight));
+        List<FlightResponseDTO> flightResponseDTOS = new ArrayList<>();
+        FlightResponseDTO flightResponseDTO = new FlightResponseDTO();
+        flightResponseDTO.setId(flight.getId());
+        flightResponseDTO.setFlight_number(flight.getFlightNumber());
+        flightResponseDTO.setDeparture("北京");
+        flightResponseDTO.setArrival("上海");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime startTime = LocalDateTime.parse(flight.getDepartureDate() + " " + flight.getDepartureTime(), formatter);
+        LocalDateTime endTime = startTime.plusHours(4);
+        flightResponseDTO.setDepartureTime(startTime.format(formatter));
+        flightResponseDTO.setArrivalTime(endTime.format(formatter));
+        flightResponseDTO.setDuration("4小时");
+        flightResponseDTO.setStops("无");
+        flightResponseDTO.setPrice(flight.getPrice().toString());
+        flightResponseDTOS.add(flightResponseDTO);
+        return ResponseEntity.ok(ResponseMessage.success("查询成功", flightResponseDTOS));
     }
 }
